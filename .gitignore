@@ -1,0 +1,11 @@
+#All Node Module Folders and Files
+backend/node_modules/*
+bot/node_modules/*
+
+#The Data Folder
+data/*
+
+#Misc Files
+.env
+.DS_Store
+Thumbs.db
