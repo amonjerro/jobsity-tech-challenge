@@ -2,8 +2,14 @@ const express = require('express')
 const express = require('express')
 const routes = express()
 
-routes.post('/login', async (req, res)=>{
-    
+const { login, register } = require('../controllers/UserController')
+
+routes.post('/login', (req, res)=>{
+    login(req,res)
+})
+
+routes.post('/register', (req, res) =>{
+    register(req,res)
 })
 
 module.exports = routes

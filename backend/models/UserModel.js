@@ -11,6 +11,12 @@ const userSchema = new mongoose.Schema({
 		required:true,
 		trim:true
 	},
+	userName:{
+		type:String,
+		required:true,
+		lowercase:true,
+		trim:true
+	},
 	email:{
 		type:String,
 		required:true,
@@ -22,13 +28,10 @@ const userSchema = new mongoose.Schema({
 		trim:true,
 		min:60
 	},
-	level:{
-		type:String,
-		required:true,
-		lowercase:true,
-		trim:true
-	},
-	active:'boolean'
+	active:{
+		type:Boolean, 
+		required:true
+	}
 },
 {timestamps:true})
 
