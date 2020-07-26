@@ -1,9 +1,9 @@
 
 const validateLoginFields = (req) =>{
-    const { password, userInput } = req.body
+    const { password, userInfo } = req.body
 
     //Required Fields
-    if (!password || !userInput){
+    if (!password || !userInfo){
         return {ok:false, message:'The password fields and an identifier for the user must be provided'}
     }
     return {ok:true, message:''}

@@ -6,10 +6,14 @@ import Card from '../../elements/containers/Card'
 import CardFooter from '../../elements/containers/CardFooter'
 import CardBody from '../../elements/containers/CardBody'
 import CentralContainer from '../../elements/containers/CentralContainer'
+import ErrorMessage from '../../elements/wells/ErrorMessage'
+import { post } from '../../../utilities/API.js';
+import { set } from '../../../utilities/Cookie.js';
+
 
 class Login extends Component{
     state = {
-        userInput:'',
+        userInfo:'',
         password:'',
         errorMessage:null,
         showLoader:false
@@ -21,6 +25,21 @@ class Login extends Component{
         console.log(this.state)
         this.setState({errorMessage:null,showLoader:true});
         e.preventDefault();
+        post(process.env.REACT_APP_BACKEND_URL+'/user/login', {
+            userInfo:this.state.userInfo,
+            password:this.state.password
+        }, (data)=>{
+            if(data.ok){
+                set('backend-token',data.token)
+                localStorage.setItem('userName',data.userName)
+                this.props.history.push('/')
+            } else {
+                this.setState({
+                    errorMessage:data.message,
+                    showLoader:false
+                })
+            }
+        })
     }
     render(){
         return (
@@ -33,8 +52,8 @@ class Login extends Component{
                                 size={null}
                                 type='text'
                                 label='Username Or Email'
-                                name='userInput'
-                                value={this.state.userInput}
+                                name='userInfo'
+                                value={this.state.userInfo}
                                 handleChange={this.handleUpdate}
                             />
                             <TextInput 
@@ -50,11 +69,11 @@ class Login extends Component{
                         </CardBody>
                         <CardFooter>
                             <Button text='Log In' type='submit' color="main" disabled={this.state.showLoader}/>
+                            
                         </CardFooter>
                     </form>
-                    
+                    { this.state.errorMessage ? (<ErrorMessage text={this.state.errorMessage}/>) : null }
                 </Card>
-                
             </CentralContainer>
         )
     }

@@ -30,3 +30,22 @@
     max-width:50%;
     min-width:50%;
 }
+
+.footer{
+    position:absolute;
+    margin-left:33%;
+    bottom:10px;
+    width:30%;
+}
+.lateral{
+    height:100%;
+    position:fixed;
+    z-index:1;
+    overflow:auto;
+    width:25%;
+    background-color:#666;
+}
+
+.main{
+    margin-left:25%
+}

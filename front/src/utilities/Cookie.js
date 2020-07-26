@@ -20,10 +20,9 @@ export const read = (name) => {
     }
     return "";
 }
-export const del = (name) => {
-    var d = new Date();
-    d.setTime(d.getTime() - 24 * 60 * 60 * 1000);
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = name + "=;" + expires + ";path=/";
+export const del = () => {
+    var d = new Date()
+    d.setDate(d.getDate()-1)
+    document.cookie = document.cookie+'; expires='+d.toUTCString()+'; path=/';
 }
 

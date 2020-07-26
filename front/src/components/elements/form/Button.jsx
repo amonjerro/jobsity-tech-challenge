@@ -6,7 +6,7 @@ class Button extends Component{
         let className = 'btn'
         return (
         <div>
-            <button className={className} type={this.props.type}>{this.props.text}</button>
+            <button className={className} type={this.props.type} onClick={this.props.click}>{this.props.text}</button>
         </div>
         )
     }

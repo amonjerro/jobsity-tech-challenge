@@ -25,14 +25,14 @@ const login = async (req, res) =>{
 
     //Password checks out?
     const passwordMatch = await bcrypt.compare(password, user.password) 
-    if(!match){
+    if(!passwordMatch){
         res.json({ok:false, message:"This username and password don't match"})
         return false
     }
 
     //Create a token
-    let token = jwt.sign({x:userName}, process.env.JWT_TOKEN, {expiresIn:'30d'})
-    res.json({ok:true, authToken:token, userName:user.userName})
+    let token = jwt.sign({x:user.userName}, process.env.JWT_SECRET, {expiresIn:'30d'})
+    res.json({ok:true, token:token, userName:user.userName})
     
 }
 
