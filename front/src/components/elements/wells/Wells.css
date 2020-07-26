@@ -1,11 +1,15 @@
-.error{
-    background-color:#FFAAAA;
-    border:1px solid #AA3333;
+.well{
     padding-left:1em;
     border-radius:3px 3px 3px 3px;
     margin:auto;
     margin-bottom:5px;
     width:95%;
+}
+
+
+.error{
+    background-color:#FFAAAA;
+    border:1px solid #AA3333;
 }
 
 .error p{
@@ -23,4 +27,20 @@
 
 .success p{
     color:#33AA33;
+}
+
+.info{
+    background-color:#FFF;
+    border:1px solid #333;
+}
+.info p {
+    color:#333;
+}
+.dark-info{
+    background-color: #666;
+    border:1px solid #fff
+}
+
+.dark-info p{
+    color:#fff
 }

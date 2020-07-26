@@ -4,7 +4,7 @@ import './Wells.css'
 class SuccessMessage extends Component{
 	render(){
 		return(
-			<div className='success'>
+			<div className='well success'>
 				<p>{this.props.text}</p>
 			</div>
 		)

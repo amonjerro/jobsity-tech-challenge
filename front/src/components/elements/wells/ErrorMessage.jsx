@@ -4,7 +4,7 @@ import './Wells.css'
 class ErrorMessage extends Component{
 	render(){
 		return(
-			<div className='error'>
+			<div className='well error'>
 				<p>{this.props.text}</p>
 			</div>
 		)
