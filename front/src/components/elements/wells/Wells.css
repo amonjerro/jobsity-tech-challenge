@@ -1,0 +1,26 @@
+.error{
+    background-color:#FFAAAA;
+    border:1px solid #AA3333;
+    padding-left:1em;
+    border-radius:3px 3px 3px 3px;
+    margin:auto;
+    margin-bottom:5px;
+    width:95%;
+}
+
+.error p{
+    color:#AA3333;
+}
+
+.success{
+    background-color:#FFF;
+    border:1px solid #33AA33;
+    padding-left:1em;
+    border-radius:3px 3px 3px 3px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.success p{
+    color:#33AA33;
+}

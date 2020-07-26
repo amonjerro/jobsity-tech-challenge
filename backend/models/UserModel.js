@@ -27,10 +27,6 @@ const userSchema = new mongoose.Schema({
 		type:String,
 		trim:true,
 		min:60
-	},
-	active:{
-		type:Boolean, 
-		required:true
 	}
 },
 {timestamps:true})

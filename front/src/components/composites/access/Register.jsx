@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import TextInput from '../elements/form/TextInput';
+import TextInput from '../../elements/form/TextInput';
 import { Link } from 'react-router-dom';
-import Button from '../elements/form/Button';
-import Card from '../elements/containers/Card'
-import CardFooter from '../elements/containers/CardFooter'
-import CardBody from '../elements/containers/CardBody'
-import CentralContainer from '../elements/containers/CentralContainer'
-import { post } from '../../utilities/API.js';
+import Button from '../../elements/form/Button';
+import Card from '../../elements/containers/Card'
+import CardFooter from '../../elements/containers/CardFooter'
+import CardBody from '../../elements/containers/CardBody'
+import CentralContainer from '../../elements/containers/CentralContainer'
+import ErrorMessage from '../../elements/wells/ErrorMessage'
+import { post } from '../../../utilities/API.js';
+import { set } from '../../../utilities/Cookie.js';
 
 
 class Register extends Component{
@@ -33,7 +35,9 @@ class Register extends Component{
             password:this.state.password
         }, (data)=>{
             if(data.ok){
-                
+                set('backend-token',data.token)
+                localStorage.setItem('userName',data.userName)
+                this.props.history.push('/')
             } else {
                 this.setState({
                     errorMessage:data.message,
@@ -97,10 +101,10 @@ class Register extends Component{
                             <Link to='/login'>Already have an account? Log in, instead!</Link>
                         </CardBody>
                         <CardFooter>
-                            <Button text='Enviar' type='submit' color="main" disabled={this.state.showLoader}/>
+                            <Button text='Register' type='submit' color="main" disabled={this.state.showLoader}/>
                         </CardFooter>
                     </form>
-                    
+                    { this.state.errorMessage ? (<ErrorMessage text={this.state.errorMessage}/>) : null }
                 </Card>
                 
             </CentralContainer>

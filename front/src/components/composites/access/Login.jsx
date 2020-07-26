@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import TextInput from '../elements/form/TextInput';
+import TextInput from '../../elements/form/TextInput';
 import { Link } from 'react-router-dom';
-import Button from '../elements/form/Button';
-import Card from '../elements/containers/Card'
-import CardFooter from '../elements/containers/CardFooter'
-import CardBody from '../elements/containers/CardBody'
-import CentralContainer from '../elements/containers/CentralContainer'
+import Button from '../../elements/form/Button';
+import Card from '../../elements/containers/Card'
+import CardFooter from '../../elements/containers/CardFooter'
+import CardBody from '../../elements/containers/CardBody'
+import CentralContainer from '../../elements/containers/CentralContainer'
 
 class Login extends Component{
     state = {
@@ -49,7 +49,7 @@ class Login extends Component{
                             <Link to='/register'>Don't have an account? Register for one!</Link>
                         </CardBody>
                         <CardFooter>
-                            <Button text='Enviar' type='submit' color="main" disabled={this.state.showLoader}/>
+                            <Button text='Log In' type='submit' color="main" disabled={this.state.showLoader}/>
                         </CardFooter>
                     </form>
                     

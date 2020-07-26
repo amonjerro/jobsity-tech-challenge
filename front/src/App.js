@@ -2,9 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
-import Login from './components/composites/Login';
-import Register from './components/composites/Register';
-import { read } from './utilities/Cookie.js';
+import Login from './components/composites/access/Login';
+import Register from './components/composites/access/Register';
+import { limitAccess } from './utilities/Security';
 
 function App() {
   return (
@@ -21,6 +21,9 @@ function App() {
 
         </Route>
         <Route path = '/' render = {(props)=>{
+          if (limitAccess()){
+            return (<Redirect to='/login' />)
+          }
           return (<div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
