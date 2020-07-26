@@ -1,5 +1,4 @@
 const express = require('express')
-const express = require('express')
 const routes = express()
 
 const { login, register } = require('../controllers/UserController')

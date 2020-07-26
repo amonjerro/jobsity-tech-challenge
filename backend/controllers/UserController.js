@@ -3,7 +3,7 @@ const saltRounds = parseInt(process.env.SALT_ROUNDS,10);
 
 const jwt = require('jsonwebtoken')
 const { User } = require('../models/UserModel')
-const { validateLoginFields, validateRegisterFields } = require('../validators/UserValidator')
+const { validateLoginFields, validateRegisterFields, validatePassword } = require('../validators/UserValidator')
 
 const login = async (req, res) =>{
     //Validate to see if the information is OK
@@ -13,13 +13,16 @@ const login = async (req, res) =>{
         return false
     }
 
+    //Deconstruct information from request body
+    const { userName, email, password } = req.body
+
 }
 
 const register = async (req, res) =>{
     //Validate to see if the information is Ok
-    const { ok, message } = validateRegisterFields(req)
-    if(!ok){
-        res.json({ok, message})
+    let v = validateRegisterFields(req)
+    if(!v.ok){
+        res.json({ok:v.ok, message:v.message})
         return false
     }
     //Deconstruct information from request body
@@ -32,7 +35,12 @@ const register = async (req, res) =>{
         return false
     }
 
-    //Hash Password
+    //Password Processing
+    v = validatePassword(password)
+    if(!v.ok){
+        res.json({ok:v.ok, message: v.message})
+        return false
+    }
     let hash = await  bcrypt.hash(password, saltRounds)
 
     //Create the user
