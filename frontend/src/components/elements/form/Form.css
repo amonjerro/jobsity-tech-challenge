@@ -1,0 +1,43 @@
+.size-1{
+    width:99%;
+}
+.size-2{
+    display:inline-block;
+    width:48%;
+    padding-right:2%;
+}
+.size-3{
+    display:inline-block;
+    width:30%;
+    padding-right:2%;
+}
+.input{
+    width:98%;
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    padding-right:0.3rem;
+    padding-left:0.3rem;
+    border-radius:5px;
+    border:1px solid #aaa;
+    margin-bottom:5px;
+    font-size:large;
+}
+.label-container{
+    margin-bottom:3px;
+    font-size: small;
+}
+
+.btn {
+    font-size:1.2rem;
+    padding-top:0.4rem;
+    padding-bottom:0.4rem;
+    padding-right:1rem;
+    padding-left:1rem;
+
+}
+.btn:focus{
+    outline:none
+}
+.btn:active{
+    outline:none
+}

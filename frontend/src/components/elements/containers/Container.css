@@ -1,0 +1,32 @@
+.card{
+    border-radius:5px;
+    border:1px solid #333;
+    box-shadow:3px 4px 5px 0px rgba(136,136,136,1);
+    margin:auto
+}
+.container{
+    padding:1rem;
+}
+.central{
+    margin-top:15rem;
+}
+.card-body{
+    padding:0.8rem;
+}
+.card-footer{
+    text-align:right;
+    border-top:1px solid #ccc;
+    padding:0.8rem;
+}
+.lg-card{
+    max-width:80%;
+    min-width:80%;
+}
+.md-card{
+    max-width:65%;
+    min-width:65%;
+}
+.sm-card{
+    max-width:50%;
+    min-width:50%;
+}
