@@ -5,3 +5,7 @@ const validateRoomCreateFields = (req) =>{
     }
     return {ok:true, message:''}
 }
+
+module.exports = {
+    validateRoomCreateFields
+}

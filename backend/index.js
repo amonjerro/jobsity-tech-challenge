@@ -1,13 +1,25 @@
+//ENV setup
 require('dotenv').config()
+
+//Imports and requirements
+
+//Database
 const mongoose = require('mongoose')
+
+//Express and HTTP Server
 const express = require('express')
-const bodyParser = require('body-parser')
 const app = express()
+const bodyParser = require('body-parser')
+const http = require('http')
 
-const routes = require('./routes/index')
+//Sockets
+const SocketServer = require('./sockets/config')
+const { socketManager } = require('./sockets/index')
 
+
+
+//CORS, JSON body-parsing and other HTTP basic set up actions
 app.disable('x-powered-by')
-
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use((req,resp,next)=>{
@@ -17,8 +29,11 @@ app.use((req,resp,next)=>{
 	next();
 })
 
+//Navigation
+const routes = require('./routes/index')
 app.use('/',routes)
 
+//Database connection
 mongoose.connect(process.env.MONGO_URI,{
 	useNewUrlParser:true,
 	useUnifiedTopology:true,
@@ -29,7 +44,15 @@ mongoose.connect(process.env.MONGO_URI,{
 })
 mongoose.set('useCreateIndex',true)
 
+//Startup
+const server = http.createServer(app)
+const io = SocketServer.startConnection(server)
 
-app.listen(process.env.PORT || 4100, ()=>{
-    console.log('Backend Online')
+
+//Socket Handling
+io.on('connection', (socket)=>{
+	console.info('Socket Connected', socket.id)
+	socketManager(socket, io)
 })
+
+server.listen(4100)

@@ -1,0 +1,34 @@
+.list{
+    list-style: none;
+    padding:0.3rem;
+}
+
+
+.list-element{
+    border-radius:5px;
+    padding-left:0.5rem;
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    font-size:1.1rem;
+    border:1px solid #333;
+    margin-bottom:10px;
+}
+
+.list-element:hover{
+    box-shadow:3px 4px 5px 0px rgba(45,45,45,1);
+}
+
+.dark {
+    color:#fff;
+    border:1px solid #fff;
+}
+
+.dark.active{
+    background-color:#d8e1e1;
+    color: #333;
+}
+
+.dark:hover{
+    background-color:#d8e1e1;
+    color: #333;
+}

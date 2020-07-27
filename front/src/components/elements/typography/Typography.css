@@ -1,0 +1,15 @@
+.title-container{
+    margin-bottom:15px;
+}
+.title-text{
+    font-weight:800;
+}
+
+.card.title-container{
+    text-align:left;
+}
+
+.panel.title-container{
+    text-align:center;
+    color:#fff;
+}

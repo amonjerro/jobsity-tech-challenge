@@ -7,16 +7,34 @@ const find = async (req,res) =>{
         res.json(v)
         return false
     }
-    let messages = await Message.find({room:req.params.room}, null, {sort:{created_at:-1}, limit:50})
+    let messages = await Message.find({room:req.params.room}, null, {sort:{createdAt:-1}, limit:50})
     res.json({ok:true, data:messages})
 }
 
-const send = async (req, res) =>{
+const send = async (params, socket) =>{
+    
+    const { message, room, userName } = params
 
+    //Save Messages
+    const m = new Message({
+        text:message,
+        room:room,
+        userName:userName
+    })
+    await m.save()
+
+    //Probably detect wether this is a bot command
+    if(detectBotCommand()){
+        //Go process that command
+        return false
+    }
+
+    //Otherwise send the message back to everybody in the room
+    socket.to(room).emit('message', {message, userName})
 }
 
-const detectBotCommand = async (req, res) =>{
-
+const detectBotCommand = async (message) =>{
+    return false
 }
 
 module.exports = {

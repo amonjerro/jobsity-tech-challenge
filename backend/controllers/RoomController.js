@@ -1,9 +1,10 @@
 const {uuid} = require('uuidv4')
 const { Room } = require('../models/RoomModel')
+const SocketServer = require('../sockets/config')
 const { validateRoomCreateFields } = require('../validators/RoomValidator')
 
 const index = async (req,res) =>{
-    let rooms = await Room.find({})
+    let rooms = await Room.find({},'-_id -createdAt -updatedAt')
     if (rooms.length < 1){
         res.json({ok:false, message:"We couldn't find any open rooms" })
         return false
@@ -18,7 +19,7 @@ const create = async (req, res) =>{
         return false
     }
     let payload = {
-        roomId:uuid(),
+        uuid:uuid(),
         roomName:req.body.roomName
     }
     let room = new Room(payload)
@@ -28,7 +29,10 @@ const create = async (req, res) =>{
         return false
     }
 
+    res.json({ok:true})
     //Update the rooms for everybody
+    const io = SocketServer.getConnection()
+    io.emit('new_room',payload)
 }
 
 module.exports = {
