@@ -1,7 +1,7 @@
 const { get } = require('../helpers/traeWrapper')
 const AMQP = require('../config/amqp')
 
-const stockQuery = async (msg, msgContents, commandValue) =>{
+const stockQuery = async (msg, commandValue) =>{
     //Received messages have already been validated
 
     //Request data from API
@@ -12,7 +12,6 @@ const stockQuery = async (msg, msgContents, commandValue) =>{
     const response = await get(process.env.API_URL, queryParameters)
 
     let replyMessage = processContent(response.data)
-    replyMessage.room = msgContents.room
     AMQP.reply(msg, replyMessage)
 }
 

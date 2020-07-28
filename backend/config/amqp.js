@@ -9,7 +9,7 @@ class AMQPSingleton {
   }
 
   //Singleton AMQP Consumer connection
-  startConnection(){
+  startConnection(callback){
     if (this.connected) return this.connection
     else {
       AMQP.connect(process.env.AMQP_CONNECTION,(err, conn)=>{
@@ -21,7 +21,7 @@ class AMQPSingleton {
         } else {
             this.connection = conn
             this.startProducerChannel()
-            this.startConsumerChannel()
+            this.startConsumerChannel(callback)
             this.connected = true
         }
       })   
@@ -29,7 +29,7 @@ class AMQPSingleton {
   }
 
   //Get the consumer
-  startConsumerChannel(){
+  startConsumerChannel(callback){
     this.connection.createChannel((err,channel)=>{
         let d = new Date()
         if(err){
@@ -42,7 +42,7 @@ class AMQPSingleton {
         console.info('Consumer online')
         this.consumerChannel = channel
         this.consumerChannel.assertQueue(process.env.APP_ID, {durable: false})
-        this.consume()
+        this.consume(callback)
     })
   }
 
@@ -67,9 +67,10 @@ class AMQPSingleton {
     this.publishChannel.sendToQueue(queue, Buffer.from(message), { replyTo:process.env.APP_ID })
   }
 
-  consume(){
+  consume(callback){
       this.consumerChannel.consume(process.env.APP_ID, (msg)=>{
-          console.log(msg.content.toString())
+          let messageContents = JSON.parse(msg.content.toString())
+          callback(messageContents)
       }, {
         noAck:true
       })

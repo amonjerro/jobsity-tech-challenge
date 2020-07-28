@@ -18,8 +18,9 @@ const { socketManager } = require('./sockets/index')
 const { socketValidateToken } = require('./helpers/Security')
 
 //AMQP Initialization
+const { sendBotMessage } = require('./controllers/MessageController')
 const AMQP = require('./config/amqp')
-AMQP.startConnection()
+AMQP.startConnection(sendBotMessage)
 
 //CORS, JSON body-parsing and other HTTP basic set up actions
 app.disable('x-powered-by')

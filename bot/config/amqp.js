@@ -33,7 +33,7 @@ class AMQPSingleton {
     this.connection.createChannel((err,channel)=>{
         let d = new Date()
         if(err){
-            console.error(`[ERROR - ${d.toISOString()}]'`)
+            console.error(`[ERROR - ${d.toISOString()}]`)
             console.error(err)
             return false
         }
@@ -50,7 +50,7 @@ class AMQPSingleton {
         let d = new Date()
         if(err){
             
-            console.error(`[ERROR - ${d.toISOString()}]'`)
+            console.error(`[ERROR - ${d.toISOString()}]`)
             console.error(err)
             return false
         }
@@ -63,19 +63,23 @@ class AMQPSingleton {
 
   reply(originalMsg, replyMsg){
     this.publishChannel.assertQueue(originalMsg.properties.replyTo,{durable:false})
-    this.publishChannel.sendToQueue(originalMsg.properties.replyTo, Buffer.from(JSON.stringify(replyMsg)))
+
+    //We send the original along with the reply because the requesting service might need its original message back
+    let replyObject = {originalMessage:JSON.parse(originalMsg.content.toString()), botMessage:replyMsg}
+    this.publishChannel.sendToQueue(originalMsg.properties.replyTo, Buffer.from(JSON.stringify(replyObject)))
+
     this.consumerChannel.ack(originalMsg)
   }
 
   consume(callback){
       this.consumerChannel.consume(process.env.BOT_CONSUMER_QUEUE, (msg)=>{
-        console.log(msg)
+    
         try{
           let messageContents = JSON.parse(msg.content.toString())
           callback(msg, messageContents)
         } catch(error){
           let d = new Date()
-          console.error(`[ERROR - ${d.toISOString()}]'`)
+          console.error(`[ERROR - ${d.toISOString()}]`)
           console.error('Message could not be parsed as JSON')
           this.reply(msg, {ok:false, message:'There was a problem parsing this message'})
         }

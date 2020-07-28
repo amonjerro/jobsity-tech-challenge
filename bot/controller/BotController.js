@@ -9,14 +9,13 @@ const commandLibrary = {
 const parseCommand = (msgContents) =>{
     const { message } = msgContents
     let indexOfSplitter = message.indexOf('=')
-    let commandName = message.substr(0, indexOfSplitter)
+    let commandName = message.substr(1, indexOfSplitter-1)
     let commandValue = message.substr(indexOfSplitter+1)
     return { commandName, commandValue}
 }
 
-const handleCommand = (msg, msgContent) => {
-    const { commandName, commandValue } = parseCommand(msgContent)
-
+const handleCommand = (msg, msgContents) => {
+    const { commandName, commandValue } = parseCommand(msgContents)
     //Guard Clauses
     let v = validateCommand(commandName, commandValue)
     if(!v.ok){
@@ -28,7 +27,7 @@ const handleCommand = (msg, msgContent) => {
         return false
     }
 
-    commandLibrary[commandName](msg, msgContents, commandValue)
+    commandLibrary[commandName](msg, commandValue)
 }
 
 const command = (msg, msgContents) =>{
