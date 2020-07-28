@@ -1,6 +1,6 @@
 const {uuid} = require('uuidv4')
 const { Room } = require('../models/RoomModel')
-const SocketServer = require('../sockets/config')
+const SocketServer = require('../config/sockets')
 const { validateRoomCreateFields } = require('../validators/RoomValidator')
 
 const index = async (req,res) =>{

@@ -6,6 +6,7 @@ const validateMessageRequest = (req) =>{
     return {ok:true, message:''}
 }
 
+
 module.exports = {
     validateMessageRequest
 }

@@ -1,11 +1,28 @@
-const validateStockRequest = (req) =>{
-    const { stock_code } = req.body
-    if (!stock_code){
-        return false
+const { index } = require("../../backend/controllers/RoomController")
+
+const validateMessage = (msg) =>{
+    const { message, room  } = msg
+    if(!message || !room ){
+        return {ok:false, message:'This message does not contain mandatory properties'}
     }
-    return true
+    const indexOfSplitter = message.indexOf('=')
+    if(indexOfSplitter === -1){
+        return {ok:false, message:'This message was malformed'}
+    }
+    return {ok:true}
+}
+
+const validateCommand = (name, value) =>{
+    if (name === ''){
+        return {ok:false, message:'The command sent has no name'}
+    }
+    if (value === ''){
+        return {ok:false, message:'The command sent has no value to evaluate'}
+    }
+    return {ok:true}
+
 }
 
 module.exports = {
-    validateStockRequest
+    validateMessage, validateCommand
 }

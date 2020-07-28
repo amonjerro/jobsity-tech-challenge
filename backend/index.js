@@ -13,10 +13,13 @@ const bodyParser = require('body-parser')
 const http = require('http')
 
 //Sockets
-const SocketServer = require('./sockets/config')
+const SocketServer = require('./config/sockets')
 const { socketManager } = require('./sockets/index')
 const { socketValidateToken } = require('./helpers/Security')
 
+//AMQP Initialization
+const AMQP = require('./config/amqp')
+AMQP.startConnection()
 
 //CORS, JSON body-parsing and other HTTP basic set up actions
 app.disable('x-powered-by')
@@ -34,7 +37,7 @@ const routes = require('./routes/index')
 app.use('/',routes)
 
 //Database connection
-mongoose.connect(process.env.MONGO_URI,{
+mongoose.connect(process.env.MONGO_URI+process.env.APP_ID,{
 	useNewUrlParser:true,
 	useUnifiedTopology:true,
 }).then(()=>{
@@ -59,3 +62,29 @@ io.on('connection', (socket)=>{
 })
 
 server.listen(process.env.PORT || 4100)
+
+//Graceful Shutdown
+const handleShutdown = ()=>{
+	if (!server.listening) process.exit(0)
+    console.info(`Shutting Down`)
+
+    // Disconnect Rabbitmq
+	AMQP.disconnect()
+	
+	//Disconnect from Mongo
+	mongoose.disconnect()
+
+    // Close server
+    server.close(err => {
+      if (err) {
+        log(err)
+        return process.exit(1)
+      }
+      log(`exiting`)
+      process.exit(0)
+    })
+ }
+
+
+process.on(`SIGINT`, handleShutdown)
+process.on(`SIGTERM`, handleShutdown)

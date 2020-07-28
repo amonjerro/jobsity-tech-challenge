@@ -1,24 +1,15 @@
 require('dotenv').config()
 
+//Express Server Basics
 const express = require('express')
-const bodyParser = require('body-parser')
 const app = express()
 
-const routes = require('./routes/index')
+const{ command } = require('./controller/BotController') 
 
-app.disable('x-powered-by')
+//AMQP
+const AMQP = require('./config/amqp')
+AMQP.startConnection(command)
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended:false}))
-app.use((req,resp,next)=>{
-	resp.set("Access-Control-Allow-Origin","*")
-	resp.set('Access-Control-Allow-Methods','GET,POST')
-	resp.set('Access-Control-Allow-Headers','Origin, X-Requested-With,Accept,Authorization,Content-Type,charset,x-access-token')
-	next();
-})
-
-
-app.use('/',routes)
 
 app.listen(process.env.PORT || 4000, ()=>{
     console.log('Bot Online')
