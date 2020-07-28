@@ -3,8 +3,9 @@ import './Container.css'
 
 class Footer extends Component{
     render(){
+
         return (
-            <div className="footer">
+            <div className={"footer "+this.props.centered}>
                 {this.props.children}
             </div>
         )

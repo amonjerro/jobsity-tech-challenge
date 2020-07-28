@@ -1,33 +1,15 @@
 import React, { Component } from 'react';
-import TextInput from '../../elements/form/TextInput';
+import MessageBubble from '../../elements/chat/MessageBubble';
 
-class ChatEntry extends Component{
-    state={
-        message:''
-    }
-    handleUpdate=(e)=>{
-        this.setState({[e.target.name]:e.target.value})
-    }
-    handleSubmit= (e)=>{
-        console.log('Send Message')
-        e.preventDefault()
-    }
+class ChatMessage extends Component{
     render(){
+        let me = localStorage.getItem('userName')
+        let myself = this.props.userName === me
+        let bot = this.props.userName === 'bot'
         return (
-           <div>
-               <form onSubmit={(e)=>this.handleSubmit(e)}>
-                <TextInput
-                    label=''
-                    size='size-1'
-                    name='message'
-                    class={null}
-                    value={this.state.message}
-                    handleChange={this.handleUpdate}
-                />
-               </form>
-           </div>
+            <MessageBubble myself={myself} bot={bot} text={this.props.text} createdAt={this.props.createdAt} userName={this.props.userName}/>
         )
     }
 }
 
-export default ChatEntry
+export default ChatMessage

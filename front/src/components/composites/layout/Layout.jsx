@@ -16,16 +16,17 @@ class Layout extends Component{
         room:null
     }
     changeChat = (room) =>{
+        let currentRoom = this.state.room
         this.state.socket.emit('join', {room})
+        if(currentRoom){
+            this.state.socket.emit('leave',{room:currentRoom})
+        }
         this.setState({room})
     }
     connectSocket = () =>{
         const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
         this.setState({
             socket:socket
-        })
-        socket.on('join_success', (data)=>{
-            console.log(data)
         })
     }
     setupBeforeUnloadListener = () =>{
@@ -43,7 +44,7 @@ class Layout extends Component{
                 {this.state.socket ? (<SidePanel>
                     <PanelTitle text={'Available Chats'}/>
                     <ChatList chatSelect={this.changeChat} socket={this.state.socket}/>
-                    <Footer>
+                    <Footer centered='centered'>
                         <Logout {...this.props}/>
                     </Footer> 
                 </SidePanel>) : (<SidePanel>

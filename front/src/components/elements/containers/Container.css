@@ -33,9 +33,12 @@
 
 .footer{
     position:absolute;
-    margin-left:33%;
-    bottom:10px;
+    width:74%;
+    bottom:10px;    
+}
+.footer.centered{
     width:30%;
+    margin-left:33%;
 }
 .lateral{
     height:100%;

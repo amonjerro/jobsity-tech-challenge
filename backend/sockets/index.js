@@ -4,7 +4,10 @@ const socketManager = (socket, io) =>{
     socket.on('join', (params)=>{
         const { room } = params
         socket.join(room)
-        io.to(room).emit('join_success', {ok:true})
+    })
+    socket.on('leave', (params)=>{
+        const { room } = params
+        socket.leave( room )
     })
     socket.on('send', (params)=>{
         const { message, userName, room } = params
