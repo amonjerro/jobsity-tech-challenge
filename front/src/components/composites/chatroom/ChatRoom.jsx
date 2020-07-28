@@ -12,28 +12,49 @@ class ChatRoom extends Component{
     loadChatMessages(){
         get(process.env.REACT_APP_BACKEND_URL+'/chat/message/ls/'+this.props.room,null, (response)=>{
             if(response.ok){
-                console.log(response.data)
+                let messages = response.data.map((element, index)=>{
+                    return (<ChatMessage text={element.text} createdAt={element.createdAt} key={index} userName={element.userName}/>)
+                })
+                this.setState({messages:messages})
+                this.scrollToChatEnd()
             } else {
                 console.log(response.message)
             }
         })
     }
-    componentDidUpdate(){
-        console.log('Updating')
-        this.loadChatMessages()
-        //Call for the 
+    paintMessages(){
+        return this.state.messages
+    }
+    scrollToChatEnd(){
+        this.endFocus.scrollIntoView({behavior:'smooth'})
+    }
+    componentDidUpdate(prevProps){
+        if(prevProps.room !== this.props.room){
+            console.log('Updating Messages')
+            this.loadChatMessages()
+            this.scrollToChatEnd()
+        }
     }
     componentDidMount(){
         this.loadChatMessages()
-        //Call for the room in the props 
+        this.props.socket.on('message', (message)=>{
+            let messages = this.state.messages
+            messages.push((<ChatMessage text={message.text} createdAt={message.createdAt} key={message.id} userName={message.userName}/>))
+            if(messages.length > parseInt(process.env.REACT_APP_CHAT_ROOM_MAX,10)){
+                messages = messages.slice(1)
+            }
+            this.setState({messages:messages})
+            this.scrollToChatEnd()
+        })
     }
     render(){
         return (
            <div>
                <ChatContainer>
-                    <ChatMessage text='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod' createdAt={new Date().toISOString()} userName='test'/>
-                    <ChatMessage text='tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam' createdAt={new Date().toISOString()} userName='not-test'/>
-                    <ChatMessage text='consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' createdAt={new Date().toISOString()} userName='bot'/>
+                   <div>
+                    {this.state.messages}
+                   </div> 
+                    <div ref={(el)=>{ this.endFocus = el;}}/>
                </ChatContainer>
                <Footer>
                     <ChatEntry socket={this.props.socket} room={this.props.room}/>

@@ -35,3 +35,7 @@
 .message-content{
     margin-bottom:0px;
 }
+.scroll{
+    clear:both;
+    float:left;
+}

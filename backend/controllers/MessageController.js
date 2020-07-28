@@ -9,6 +9,7 @@ const find = async (req,res) =>{
         return false
     }
     let messages = await Message.find({room:req.params.room}, null, {sort:{createdAt:-1}, limit:50})
+    messages.reverse()
     res.json({ok:true, data:messages})
 }
 
@@ -16,26 +17,26 @@ const send = async (params) =>{
     
     const { message, room, userName } = params
 
+    //Probably detect wether this is a bot command
+    if(detectBotCommand(message)){
+        //Go process that command
+        return false
+    }
+
     //Save Messages
     const m = new Message({
         text:message,
         room:room,
         userName:userName
     })
-    await m.save()
-
-    //Probably detect wether this is a bot command
-    if(detectBotCommand()){
-        //Go process that command
-        return false
-    }
+    let saved_message = await m.save()
 
     //Otherwise send the message back to everybody in the room
     const io = SocketServer.getConnection()
-    io.to(room).emit('message', {message, userName})
+    io.to(room).emit('message', {text:message, userName, createdAt:saved_message.createdAt, id:saved_message._id})
 }
 
-const detectBotCommand = async (message) =>{
+const detectBotCommand = (message) => {
     return false
 }
 

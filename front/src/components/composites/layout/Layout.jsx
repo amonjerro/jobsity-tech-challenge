@@ -55,7 +55,7 @@ class Layout extends Component{
                 </SidePanel>)}
                 
                 <CentralPanel>
-                    {this.state.room ? (<ChatRoom room={this.state.room} socket={this.state.socket}/>) : null}
+                    {(this.state.room && this.state.socket) ? (<ChatRoom room={this.state.room} socket={this.state.socket}/>) : null}
                 </CentralPanel>
             </div>
         )

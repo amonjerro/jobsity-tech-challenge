@@ -58,4 +58,4 @@ io.on('connection', (socket)=>{
 	socketManager(socket, io)
 })
 
-server.listen(4100)
+server.listen(process.env.PORT || 4100)

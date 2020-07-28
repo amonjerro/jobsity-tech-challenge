@@ -52,3 +52,7 @@
 .main{
     margin-left:25%
 }
+.chat-content{
+    max-height:90vh;
+    overflow-y:scroll;
+}
