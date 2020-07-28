@@ -9,8 +9,10 @@ class ChatEntry extends Component{
         this.setState({[e.target.name]:e.target.value})
     }
     handleSubmit= (e)=>{
-        console.log('Send Message')
+        this.props.socket.emit('send', {message:this.state.message,room:this.props.room})
+        this.setState({message:''})
         e.preventDefault()
+        return false;
     }
     render(){
         return (

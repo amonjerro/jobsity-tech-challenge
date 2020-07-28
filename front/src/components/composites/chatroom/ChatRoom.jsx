@@ -36,7 +36,7 @@ class ChatRoom extends Component{
                     <ChatMessage text='consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse' createdAt={new Date().toISOString()} userName='bot'/>
                </ChatContainer>
                <Footer>
-                    <ChatEntry socket={this.props.socket}/>
+                    <ChatEntry socket={this.props.socket} room={this.props.room}/>
                </Footer>
            </div>
         )

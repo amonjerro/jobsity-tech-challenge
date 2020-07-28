@@ -1,4 +1,5 @@
 const { Message } = require('../models/MessageModel')
+const SocketServer = require('../sockets/config')
 const { validateMessageRequest } = require('../validators/MessageValidator')
 
 const find = async (req,res) =>{
@@ -11,7 +12,7 @@ const find = async (req,res) =>{
     res.json({ok:true, data:messages})
 }
 
-const send = async (params, socket) =>{
+const send = async (params) =>{
     
     const { message, room, userName } = params
 
@@ -30,7 +31,8 @@ const send = async (params, socket) =>{
     }
 
     //Otherwise send the message back to everybody in the room
-    socket.to(room).emit('message', {message, userName})
+    const io = SocketServer.getConnection()
+    io.to(room).emit('message', {message, userName})
 }
 
 const detectBotCommand = async (message) =>{

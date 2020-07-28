@@ -10,8 +10,9 @@ const socketManager = (socket, io) =>{
         socket.leave( room )
     })
     socket.on('send', (params)=>{
-        const { message, userName, room } = params
-        send({message, userName, room}, socket)
+        const { message, room } = params
+        const userName = socket.userName
+        send({message, userName, room})
     })
     socket.on('disconnect', () =>{
         console.log('Socket Disconnected', socket.id)

@@ -7,7 +7,7 @@ import PanelTitle from '../../elements/typography/PanelTitle'
 import Logout from '../access/Logout'
 import ChatList from '../chatroom/ChatList'
 import ChatRoom from '../chatroom/ChatRoom'
-
+import { read } from '../../../utilities/Cookie'
 
 
 class Layout extends Component{
@@ -24,7 +24,8 @@ class Layout extends Component{
         this.setState({room})
     }
     connectSocket = () =>{
-        const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL)
+        let token = read('backend-token')
+        const socket = socketIOClient(process.env.REACT_APP_BACKEND_URL, {query:{token}})
         this.setState({
             socket:socket
         })

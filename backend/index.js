@@ -15,7 +15,7 @@ const http = require('http')
 //Sockets
 const SocketServer = require('./sockets/config')
 const { socketManager } = require('./sockets/index')
-
+const { socketValidateToken } = require('./helpers/Security')
 
 
 //CORS, JSON body-parsing and other HTTP basic set up actions
@@ -50,6 +50,9 @@ const io = SocketServer.startConnection(server)
 
 
 //Socket Handling
+io.use((socket, next)=>{
+	socketValidateToken(socket, next)
+})
 io.on('connection', (socket)=>{
 	console.info('Socket Connected', socket.id)
 	socketManager(socket, io)
