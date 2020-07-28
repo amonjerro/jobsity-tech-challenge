@@ -1,7 +1,6 @@
 
 const validateLoginFields = (req) =>{
     const { password, userInfo } = req.body
-
     //Required Fields
     if (!password || !userInfo){
         return {ok:false, message:'The password fields and an identifier for the user must be provided'}
@@ -10,15 +9,12 @@ const validateLoginFields = (req) =>{
 }
 
 const validateRegisterFields = (req) =>{
-    
     const { firstName, lastName, userName, password, email } = req.body
-
     //Required Fields
     if(!firstName || !lastName || !userName || !email || !password){
         return {ok:false, message:'Please fill out the information with regards to your first name, your last name, your email, a username and a password'}
     }
     return validateEmailFormat(email)
- 
 }
 
 const validateEmailFormat = (email) =>{

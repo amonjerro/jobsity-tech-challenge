@@ -1,6 +1,6 @@
 const { send } = require('../controllers/MessageController')
 
-const socketManager = (socket, io) =>{
+const socketManager = (socket) =>{
     socket.on('join', (params)=>{
         const { room } = params
         socket.join(room)

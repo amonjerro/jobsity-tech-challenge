@@ -1,7 +1,6 @@
-require('dotenv').config()
 const jwt = require('jsonwebtoken');
 
-module.exports.socketValidateToken = (socket, next)=>{
+const socketValidateToken = (socket, next)=>{
     if(!socket.handshake.query || !socket.handshake.query.token){
         socket.emit('auth_error', {ok:false, message:'Authorization has failed'})
         return false;
@@ -14,4 +13,8 @@ module.exports.socketValidateToken = (socket, next)=>{
             next()
         }
     })
+}
+
+module.exports = {
+    socketValidateToken
 }
