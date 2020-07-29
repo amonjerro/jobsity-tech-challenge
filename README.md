@@ -3,6 +3,8 @@
 
 This repository holds the components to set up a barebones real-time chat system. It has a _very_ barebones React based frontend, an Express-and-Sockets.IO-based backend system and a simple chat support bot.
 
+The following instructions have been tested using a bash based terminal and these deployment instructions **have not been tested on a Windows machine** as none was available during development.
+
 ## Required Supporting Services
 ---
 
