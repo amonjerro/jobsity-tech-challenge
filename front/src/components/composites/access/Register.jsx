@@ -102,6 +102,7 @@ class Register extends Component{
                         </CardBody>
                         <CardFooter>
                             <Button text='Register' type='submit' color="main" disabled={this.state.showLoader}/>
+                            {this.state.showLoader ? (<span>Validating credentials...</span>) : null} 
                         </CardFooter>
                     </form>
                     { this.state.errorMessage ? (<ErrorMessage text={this.state.errorMessage}/>) : null }

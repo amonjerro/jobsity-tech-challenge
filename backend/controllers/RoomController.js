@@ -30,9 +30,6 @@ const create = async (req, res) =>{
     }
 
     res.json({ok:true})
-    //Update the rooms for everybody
-    const io = SocketServer.getConnection()
-    io.emit('new_room',payload)
 }
 
 module.exports = {
