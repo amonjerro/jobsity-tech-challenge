@@ -5,13 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "setup": "node ./setup/setup.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.6.0",
-    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "escape-html": "^1.0.3",
