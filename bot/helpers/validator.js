@@ -1,5 +1,3 @@
-const { index } = require("../../backend/controllers/RoomController")
-
 const validateMessage = (msg) =>{
     const { message, room  } = msg
     if(!message || !room ){

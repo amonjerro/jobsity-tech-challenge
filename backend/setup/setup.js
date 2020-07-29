@@ -18,8 +18,8 @@ const writeEnv = () =>{
     contents += 'APP_ID='+a+'\n'
     contents += 'JWT_SECRET='+b+'\n'
     //ESTABLISH LOCALHOST FOR MONGO AND AMQP
-    contents += 'MONGO_URI=mongodb://localhost:27017/\n'
-    contents += 'AMQP_CONNECTION=amqp://localhost'
+    contents += 'MONGO_URI=mongodb://mongoService/\n'
+    contents += 'AMQP_CONNECTION=amqp://amqpService'
 
     fs.writeFileSync('./.env', contents)
 }

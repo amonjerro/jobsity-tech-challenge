@@ -13,7 +13,7 @@ const writeEnv = () =>{
     //Establish BOT_CONSUMER_QUEUE
     contents += 'BOT_CONSUMER_QUEUE=bot_queue\n'
     //ESTABLISH LOCALHOST FOR AMQP
-    contents += 'AMQP_CONNECTION=amqp://localhost'
+    contents += 'AMQP_CONNECTION=amqp://amqpService'
 
     fs.writeFileSync('./.env', contents)
 }

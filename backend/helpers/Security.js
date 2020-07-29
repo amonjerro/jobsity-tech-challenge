@@ -8,6 +8,7 @@ const socketValidateToken = (socket, next)=>{
 	jwt.verify(socket.handshake.query.token, process.env.JWT_SECRET, (err, decoded)=>{
         if(err){
             socket.emit('auth_error', {ok:false, message:'Authorization has failed'})
+            return false
         } else{
             socket.userName = decoded.x
             next()

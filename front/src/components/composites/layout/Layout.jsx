@@ -7,6 +7,7 @@ import PanelTitle from '../../elements/typography/PanelTitle'
 import Logout from '../access/Logout'
 import ChatList from '../chatroom/ChatList'
 import ChatRoom from '../chatroom/ChatRoom'
+
 import { read } from '../../../utilities/Cookie'
 
 
@@ -49,6 +50,7 @@ class Layout extends Component{
                         <Logout {...this.props}/>
                     </Footer> 
                 </SidePanel>) : (<SidePanel>
+                    
                     <Footer>
                         <Logout {...this.props}/>
                     </Footer> 
