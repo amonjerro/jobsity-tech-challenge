@@ -15,7 +15,7 @@ const writeEnv = () =>{
     //ESTABLISH LOCALHOST FOR AMQP
     contents += 'AMQP_CONNECTION=amqp://amqpService'
 
-    fs.writeFileSync('./.env', contents)
+    fs.writeFileSync(localPath+'/.env', contents)
 }
 
 const validateEnv = (f) =>{

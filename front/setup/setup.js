@@ -9,7 +9,7 @@ const writeEnv = () =>{
     contents += 'REACT_APP_BACKEND_URL=http://localhost:4100'
     //Establish PORT
     contents += 'REACT_APP_CHAT_ROOM_MAX=50\n'
-    fs.writeFileSync('./.env', contents)
+    fs.writeFileSync(localPath+'/.env', contents)
 }
 
 const validateEnv = (f) =>{

@@ -21,7 +21,7 @@ const writeEnv = () =>{
     contents += 'MONGO_URI=mongodb://mongoService/\n'
     contents += 'AMQP_CONNECTION=amqp://amqpService'
 
-    fs.writeFileSync('./.env', contents)
+    fs.writeFileSync(localPath+'/.env', contents)
 }
 
 const validateEnv = (f) =>{
