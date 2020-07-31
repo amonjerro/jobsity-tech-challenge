@@ -15,14 +15,17 @@ If you don't have docker installed please follow the instructions found here[htt
 
 ## Set Up
 
-To ensure every system has the right environment variables in order to run, from this directory perform the following command.
+To ensure every system has the right environment variables in order to run, from this directory perform the following commands in order.
 
 ```bash
-    npm run setup
     npm run docker-network
+    npm run get-services
+    npm run setup
 ```
 
-Doing this will create an .env file for each subsystem. These .env files will be generated under the assumption that all necessary resources are hosted by the localhost. If this is not the case, please make sure to edit the entries in these .env files with the values that point  the system to the necessary resources.
+The first two commands will create the dependent services in a bridged Docker network. 
+
+The third command  will create an .env file for each subsystem. These .env files will be generated under the assumption that all necessary resources are hosted by the localhost. If this is not the case, please make sure to edit the entries in these .env files with the values that point  the system to the necessary resources.
 
 For example, if you need to change the URL of the backend service, make sure to edit the .env file in the frontend to so that it resolves correctly.
 
@@ -32,12 +35,6 @@ Once your enviroment is set up correctly, run the following command from this re
 
 ```bash
     npm run dockerize
-```
-
-This will build the necessary Docker images for each of the subsystems. After that, run the following command
-
-```bash
-    npm run get-services
 ```
 
 Finally, to get an instance of the system running, run the following command

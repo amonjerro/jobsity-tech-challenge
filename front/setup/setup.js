@@ -6,7 +6,7 @@ const localPath = './front'
 const writeEnv = () =>{
     let contents = ''
     //Establish REACT_APP_BACKEND_URL
-    contents += 'REACT_APP_BACKEND_URL=http://localhost:4100'
+    contents += 'REACT_APP_BACKEND_URL=http://localhost:4100\n'
     //Establish PORT
     contents += 'REACT_APP_CHAT_ROOM_MAX=50\n'
     fs.writeFileSync(localPath+'/.env', contents)
