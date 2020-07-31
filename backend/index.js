@@ -38,7 +38,7 @@ const routes = require('./routes/index')
 app.use('/',routes)
 
 //Database connection
-mongoose.connect(process.env.MONGO_URI+process.env.APP_ID,{
+mongoose.connect(process.env.MONGO_URI+process.env.MONGO_NAME,{
 	useNewUrlParser:true,
 	useUnifiedTopology:true,
 }).then(()=>{

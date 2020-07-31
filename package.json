@@ -8,7 +8,7 @@
     "docker-network":"docker network create chatroom-net",
     "dockerize": "docker build -t chat-back ./backend && docker build -t chat-bot ./bot && docker build -t chat-front ./front",
     "get-services": "docker run --name mongoService --net chatroom-net -d mongo:4.0  && docker run -d --hostname amqpService --name amqpService --net chatroom-net rabbitmq:3",
-    "kill": "docker container stop backend && docker container rm backend && docker container stop front && docker container rm front && docker container stop bot && docker container rm bot",
+    "kill": "docker container stop backend && docker container rm backend && docker container stop front && docker container rm front && docker container stop bot && docker container rm bot && docker container stop amqpService && docker container rm amqpService && docker container stop mongoService && docker container rm mongoService",
     "deploy":"docker run -d --name backend --net chatroom-net -p 4100:4100 chat-back && docker run -d --name bot --net chatroom-net -p 4000:4000 chat-bot && docker run -d --name front --net chatroom-net -p 8080:80 chat-front"
   },
   "repository": {

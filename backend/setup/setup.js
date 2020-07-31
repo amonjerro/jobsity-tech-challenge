@@ -16,6 +16,7 @@ const writeEnv = () =>{
     let a = crypto.randomBytes(32).toString('hex')
     let b = crypto.randomBytes(32).toString('hex')
     contents += 'APP_ID='+a+'\n'
+    contents += 'MONGO_NAME='+a.substr(0,32)+'\n' 
     contents += 'JWT_SECRET='+b+'\n'
     //ESTABLISH LOCALHOST FOR MONGO AND AMQP
     contents += 'MONGO_URI=mongodb://mongoService/\n'
